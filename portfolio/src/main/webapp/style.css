@@ -14,3 +14,55 @@
   margin-right: auto;
   width: 50%;
 }
+
+body {
+  background-color: whitesmoke;
+  margin: 0;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+header {
+  background: black;
+}
+
+header::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.logos {
+  float: right;
+}
+
+nav {
+  display: flex;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav li {
+  display: inline-block;
+  justify-content: space-around;
+  margin-left: 70px;
+  margin-right: 35 px;
+  padding-top: 25px;
+}
+
+nav a {
+  color: whitesmoke;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+nav a:hover {
+  color: greenyellow;
+}

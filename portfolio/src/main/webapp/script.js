@@ -16,18 +16,19 @@
  * Adds a random greeting to the page.
  */
 function addRandomGreeting() {
-  const greetings =
-      ['"Carpe diem. Seize the day, boys. Make your lives extraordinary.”' + 
-      ' -Dead Poets Society',
-       '"Roads? Where we\'re going we don\'t need roads."' + 
-       ' -Back to the Future', 
-       'I was born in Kumasi, Ghana.', 
-       'My favorite video game to play is League of Legends.'];
+  const greetings = [
+    '"Carpe diem. Seize the day, boys. Make your lives extraordinary.”' +
+      " -Dead Poets Society",
+    "\"Roads? Where we're going we don't need roads.\"" +
+      " -Back to the Future",
+    "I was born in Kumasi, Ghana.",
+    "My favorite video game to play is League of Legends.",
+  ];
 
   // Pick a random greeting.
   const greeting = greetings[Math.floor(Math.random() * greetings.length)];
 
   // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
+  const greetingContainer = document.getElementById("greeting-container");
   greetingContainer.innerText = greeting;
 }
