@@ -32,3 +32,25 @@ function addRandomGreeting() {
   const greetingContainer = document.getElementById("greeting-container");
   greetingContainer.innerText = greeting;
 }
+
+function getData() {
+    console.log("We are Here;");
+    const responsePromise = fetch('/data');
+
+    responsePromise.then(handleResponse);
+}
+
+function handleResponse(response) {
+  console.log('Handling the response.');
+
+  const textPromise = response.text();
+
+  textPromise.then(addHelloToDom);
+}
+
+function addHelloToDom(hello) {
+  console.log('Adding Hello to dom: ' + hello);
+
+  const quoteContainer = document.getElementById('data-container');
+  quoteContainer.innerText = hello;
+}
