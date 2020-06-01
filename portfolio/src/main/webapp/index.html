@@ -1,49 +1,62 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>My Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script src="script.js"></script>
   </head>
 
   <header>
-      <div class "container">
-          <a href="https://www.linkedin.com/in/kwame-ampadu-boateng-672a49195" target="_blank">
-              <img src="/images/LinkedIn-Logo.png" alt="LinkedIn" class="logos" height="75">           
-          </a>
-          <a href="https://github.com/Kwameoab" target="_blank">
-              <img src="/images/Octocat.png" alt="Github" class="logos" height="75">
-          </a>
-          
-          <nav>
-              <ul>
-                  <li><a href="index.html">Home</a></li>
-                  <li><a href="education.html">Education</a></li> 
-                  <li><a href="personal.html">Personal</a></li>
-                  <li><a href="step_experience.html">My STEP Experience</a></li>                        
-              </ul>
-          </nav>
-      </div>
+    <div class="container">
+      <a
+        href="https://www.linkedin.com/in/kwame-ampadu-boateng-672a49195"
+        target="_blank"
+      >
+        <img
+          src="/images/LinkedIn-Logo.png"
+          alt="LinkedIn"
+          class="logos"
+          height="75"
+        />
+      </a>
+      <a href="https://github.com/Kwameoab" target="_blank">
+        <img src="/images/Octocat.png" alt="Github" class="logos" height="75" />
+      </a>
+
+      <nav>
+        <ul>
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="education.html">Education</a></li>
+          <li><a href="personal.html">Personal</a></li>
+          <li><a href="step_experience.html">My STEP Experience</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
-  
+
   <body>
     <div id="content">
       <h1>Kwame Ampadu-Boateng's Portfolio</h1>
-      <hr/>
+      <hr />
 
       <p>
-          Hello! My name is Kwame Ampadu-Boateng. I am currently a rising 
-          sophomore at Vanderbilt University, majoring in Computer Science and 
-          Economics. This is a website I made through Google <b>STEP</b>
-          (Student Training in Engineering Program).
+        Hello! My name is Kwame Ampadu-Boateng. I am currently a rising
+        sophomore at Vanderbilt University, majoring in Computer Science and
+        Economics. This is a website I made through Google <b>STEP</b>
+        (Student Training in Engineering Program).
       </p>
-      <img src="/images/Self.jpg" width="300" height="350" 
-        alt="Me holding a watermelon." class="center"/>
-      
+      <img
+        src="/images/Self.jpg"
+        width="300"
+        height="350"
+        alt="Me holding a watermelon."
+        class="center"
+      />
+
       <p>
-          Click the button below to get a random message. The message could 
-          either be about me or a movie/book quote that I enjoy.
+        Click the button below to get a random message. The message could either
+        be about me or a movie/book quote that I enjoy.
       </p>
       <button onclick="addRandomGreeting()">Explore</button>
       <div id="greeting-container"></div>
