@@ -54,3 +54,23 @@ function addHelloToDom(hello) {
   const quoteContainer = document.getElementById('data-container');
   quoteContainer.innerText = hello;
 }
+
+function getJson() {
+  fetch('/data').then(response => response.json()).then((jData) => {
+    console.log(jData);
+    var commentContainer = document.getElementById('comment-container');
+    var all = "";
+    for (content in jData){
+        console.log(content);
+        all += jData[content];
+        all += " ";
+    }
+    commentContainer.innerHTML = all;
+  });
+}
+
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
+}
