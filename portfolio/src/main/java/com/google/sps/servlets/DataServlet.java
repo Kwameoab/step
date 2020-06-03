@@ -26,7 +26,6 @@ import com.google.gson.Gson;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

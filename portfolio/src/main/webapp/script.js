@@ -56,17 +56,17 @@ function addHelloToDom(hello) {
 }
 
 function getJson() {
-  fetch("/jData")
+  fetch("/jsonData")
     .then((response) => response.json())
-    .then((jData) => {
-      console.log(jData);
+    .then((jsonData) => {
+      console.log(jsonData);
       var commentContainer = document.getElementById("comment-container");
       var allComments = "";
-      for (content in jData) {
+      for (content in jsonData) {
         console.log(content);
-        allComments += jData[content];
+        allComments += jsonData[content];
         allComments += "<br>";
       }
-      commentContainer.innerHTML = all;
+      commentContainer.innerHTML = allComments;
     });
 }
