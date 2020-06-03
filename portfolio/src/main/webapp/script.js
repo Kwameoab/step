@@ -64,7 +64,8 @@ function getJson() {
       var allComments = "";
       for (content in jsonData) {
         console.log(content);
-        allComments += jsonData[content];
+        console.log(jsonData[content]);
+        allComments += jsonData[content].message;
         allComments += "<br>";
       }
       commentContainer.innerHTML = allComments;
