@@ -34,14 +34,14 @@ function addRandomGreeting() {
 }
 
 function getData() {
-    console.log("We are Here;");
-    const responsePromise = fetch('/data');
+  console.log("We are Here;");
+  const responsePromise = fetch("/data");
 
-    responsePromise.then(handleResponse);
+  responsePromise.then(handleResponse);
 }
 
 function handleResponse(response) {
-  console.log('Handling the response.');
+  console.log("Handling the response.");
 
   const textPromise = response.text();
 
@@ -49,28 +49,24 @@ function handleResponse(response) {
 }
 
 function addHelloToDom(hello) {
-  console.log('Adding Hello to dom: ' + hello);
+  console.log("Adding Hello to dom: " + hello);
 
-  const quoteContainer = document.getElementById('data-container');
+  const quoteContainer = document.getElementById("data-container");
   quoteContainer.innerText = hello;
 }
 
 function getJson() {
-  fetch('/data').then(response => response.json()).then((jData) => {
-    console.log(jData);
-    var commentContainer = document.getElementById('comment-container');
-    var all = "";
-    for (content in jData){
+  fetch("/jData")
+    .then((response) => response.json())
+    .then((jData) => {
+      console.log(jData);
+      var commentContainer = document.getElementById("comment-container");
+      var allComments = "";
+      for (content in jData) {
         console.log(content);
-        all += jData[content];
-        all += " ";
-    }
-    commentContainer.innerHTML = all;
-  });
-}
-
-function createListElement(text) {
-  const liElement = document.createElement('li');
-  liElement.innerText = text;
-  return liElement;
+        allComments += jData[content];
+        allComments += "<br>";
+      }
+      commentContainer.innerHTML = all;
+    });
 }
