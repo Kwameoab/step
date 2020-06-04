@@ -21,15 +21,38 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import com.google.gson.Gson;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
-@WebServlet("/data")
-public class DataServlet extends HttpServlet {
-
+@WebServlet("/jsonData")
+public class DataServlet2 extends HttpServlet {
+    private ArrayList<String> comments = new ArrayList();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;");
-    response.getWriter().println("Hello Kwame!");
+    String json = convertToJson(comments);
+
+    response.setContentType("application/json;");
+    response.getWriter().println(json);
   }
+
+  private String convertToJson(ArrayList<String> comments){
+      String json = "{";
+      for(int i = 0; i < comments.size(); ++i){
+          if (i != 0){
+              json += ", ";
+          }
+          json += "\"Comment " + (i + 1) + "\": ";
+          json += "\"" + comments.get(i) + "\"";
+      }
+      json += "}";
+      return json;
+  }
+  
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+      comments.add(request.getParameter("userComment"));
+      response.sendRedirect("/index.html");
+  }      
 }

@@ -60,8 +60,25 @@
       </p>
       <button onclick="addRandomGreeting()">Explore</button>
       <div id="greeting-container"></div>
-      <button onclick="getData()">Fetch a quote!</button>
+
+      <br />
+
+      <button onclick="getData()">Get Hello</button>
       <div id="data-container"></div>
+
+      <br />
+
+      <form action="/jsonData" method="POST">
+        <label for="userComment">Add a comment:</label><br />
+        <input type="text" id="userComment" name="userComment" /><br />
+        <br /><br />
+        <input type="submit" />
+      </form>
+
+      <br />
+
+      <button onclick="getJson()">See Comments.</button>
+      <div id="comment-container"></div>
     </div>
   </body>
 </html>

@@ -34,14 +34,14 @@ function addRandomGreeting() {
 }
 
 function getData() {
-    console.log("We are Here;");
-    const responsePromise = fetch('/data');
+  console.log("We are Here;");
+  const responsePromise = fetch("/data");
 
-    responsePromise.then(handleResponse);
+  responsePromise.then(handleResponse);
 }
 
 function handleResponse(response) {
-  console.log('Handling the response.');
+  console.log("Handling the response.");
 
   const textPromise = response.text();
 
@@ -49,8 +49,24 @@ function handleResponse(response) {
 }
 
 function addHelloToDom(hello) {
-  console.log('Adding Hello to dom: ' + hello);
+  console.log("Adding Hello to dom: " + hello);
 
-  const quoteContainer = document.getElementById('data-container');
+  const quoteContainer = document.getElementById("data-container");
   quoteContainer.innerText = hello;
+}
+
+function getJson() {
+  fetch("/jsonData")
+    .then((response) => response.json())
+    .then((jsonData) => {
+      console.log(jsonData);
+      var commentContainer = document.getElementById("comment-container");
+      var allComments = "";
+      for (content in jsonData) {
+        console.log(content);
+        allComments += jsonData[content];
+        allComments += "<br>";
+      }
+      commentContainer.innerHTML = allComments;
+    });
 }
