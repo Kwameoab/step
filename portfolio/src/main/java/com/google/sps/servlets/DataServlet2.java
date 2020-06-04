@@ -30,11 +30,8 @@ import com.google.appengine.api.datastore.Entity;
 public class DataServlet2 extends HttpServlet {
     private ArrayList<String> comments = new ArrayList();
 
-  
-
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
     String json = convertToJson(comments);
 
     response.setContentType("application/json;");
@@ -53,6 +50,7 @@ public class DataServlet2 extends HttpServlet {
       json += "}";
       return json;
   }
+  
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
       comments.add(request.getParameter("userComment"));
       response.sendRedirect("/index.html");
