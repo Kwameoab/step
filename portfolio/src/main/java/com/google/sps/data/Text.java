@@ -1,6 +1,6 @@
 package com.google.sps.data;
 
-/** An item on a todo list. */
+/** An item on a text list. */
 public final class Text {
 
   private final long id;

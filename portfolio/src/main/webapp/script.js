@@ -56,7 +56,8 @@ function addHelloToDom(hello) {
 }
 
 function getJson() {
-  fetch("/jsonData")
+  var max = document.getElementById("maxForm").value;
+  fetch("/jsonData?maxCount=" + max )
     .then((response) => response.json())
     .then((jsonData) => {
       console.log(jsonData);

@@ -79,6 +79,16 @@
 
       <button onclick="getJson()">See Comments.</button>
       <div id="comment-container"></div>
+      
+      <form action="/jsonData">
+
+        <p>How many comments do you want to see?</p>
+        <input  type="number" name="maxCount" min="1" max="50" value="10" id="maxForm" onchange="getJson(this.value)">
+        <br/><br/>
+
+        <input type="button" onclick="getJson()" value="Submit">
+      </form>
+
     </div>
   </body>
 </html>
