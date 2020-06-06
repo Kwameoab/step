@@ -34,6 +34,8 @@ import java.util.List;
 @WebServlet("/jsonData")
 
 public class DataServlet2 extends HttpServlet {  
+  // This an array List that will be used in DeletedataSerlet.java to delete all comments
+  public static ArrayList<Long> allIDs = new ArrayList<Long>();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -51,9 +53,9 @@ public class DataServlet2 extends HttpServlet {
         maxComment = -1;
       }
 
-      // Check that the input is between 1 and 50
-      if (maxComment < 1 || maxComment > 50) {
-        System.err.println("Player choice is out of range: " + maxCommentsString);
+      // Check that the input is between 0 and 50
+      if (maxComment < 0 || maxComment > 50) {
+        System.err.println("User choice is out of range: " + maxCommentsString);
         maxComment = -1;
       }
       
@@ -66,6 +68,7 @@ public class DataServlet2 extends HttpServlet {
             }
         }      
         long id = entity.getKey().getId();
+        this.allIDs.add(id);
         String title = (String) entity.getProperty("message");
         long timestamp = (long) entity.getProperty("timestamp");
 
@@ -88,5 +91,10 @@ public class DataServlet2 extends HttpServlet {
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
       datastore.put(commentEntity);
       response.sendRedirect("/index.html");
-  }      
+  }
+
+  // For use in DleteDataServlet.java
+  public ArrayList<Long> getArray(){
+      return this.allIDs;
+  }
 }

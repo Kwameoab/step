@@ -109,3 +109,13 @@ nav a:hover {
 #comment-contaienr {
   margin-top: 20px;
 }
+
+input[type="button"],
+input[type="submit"],
+.regButton {
+  background-color: skyblue;
+  border: none;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}

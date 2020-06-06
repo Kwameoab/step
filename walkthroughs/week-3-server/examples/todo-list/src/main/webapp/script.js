@@ -47,6 +47,9 @@ function createTaskElement(task) {
 /** Tells the server to delete the task. */
 function deleteTask(task) {
   const params = new URLSearchParams();
+  console.log(params);
   params.append('id', task.id);
+  console.log("second params is coming");
+  console.log(params);
   fetch('/delete-task', {method: 'POST', body: params});
 }
