@@ -16,33 +16,35 @@ package com.google.sps.servlets;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.datastore.Query;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import com.google.appengine.api.datastore.Query;
-import java.util.List;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.FetchOptions;
-
 
 /** Servlet responsible for deleting data. */
 @WebServlet("/delete-data")
 public class DeleteDataServlet extends HttpServlet {
 
   @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  public void doPost(HttpServletRequest request, HttpServletResponse response)
+    throws IOException {
     Query queue = new Query("Text").setKeysOnly();
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    List<Entity> results = datastore.prepare(queue).asList(FetchOptions.Builder.withDefaults());
-    for (int i = 0; i < results.size(); i++){
-        long id = results.get(i).getKey().getId();
-        Key taskEntityKey = KeyFactory.createKey("Text", id);
-        datastore.delete(taskEntityKey);
+    List<Entity> results = datastore
+      .prepare(queue)
+      .asList(FetchOptions.Builder.withDefaults());
+    for (int i = 0; i < results.size(); i++) {
+      long id = results.get(i).getKey().getId();
+      Key taskEntityKey = KeyFactory.createKey("Text", id);
+      datastore.delete(taskEntityKey);
     }
   }
 }

@@ -14,61 +14,67 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.gson.Gson;
+import com.google.sps.data.Text;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import com.google.gson.Gson;
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.sps.data.Text;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.SortDirection;
-import java.util.List;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/jsonData")
-
-public class DataServlet2 extends HttpServlet {  
-  // This an array List that will be used in DeletedataSerlet.java to delete all comments
+public class DataServlet2 extends HttpServlet {
 
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-      Query query = new Query("Text").addSort("timestamp", SortDirection.DESCENDING);
-      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-      PreparedQuery results = datastore.prepare(query);
-      List<Text> texts = new ArrayList<>();
+  public void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws IOException {
+    Query query = new Query("Text")
+    .addSort("timestamp", SortDirection.DESCENDING);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+    List<Text> texts = new ArrayList<>();
 
-      String maxCommentsString = request.getParameter("maxCount");
-      int maxComment;
-      try {
-        maxComment = Integer.parseInt(maxCommentsString);
-      } catch (NumberFormatException e) {
-        System.err.println("Could not convert to int: " + maxCommentsString);
-        maxComment = -1;
-      }
+    String maxCommentsString = request.getParameter("maxCount");
+    int maxComment;
+    try {
+      maxComment = Integer.parseInt(maxCommentsString);
+    } catch (NumberFormatException e) {
+      System.err.println("Could not convert to int: " + maxCommentsString);
+      maxComment = -1;
+    }
 
-      // Check that the input is between 0 and 50
-      if (maxComment < 0 || maxComment > 50) {
-        System.err.println("User choice is out of range: " + maxCommentsString);
-        maxComment = -1;
+    // Check that the input is between 0 and 50
+    if (maxComment < 0 || maxComment > 50) {
+      System.err.println("User choice is out of range: " + maxCommentsString);
+      maxComment = -1;
+    }
+    if (maxComment == -1) {
+      response.sendError(
+        HttpServletResponse.SC_BAD_REQUEST,
+        "Can not use input"
+      );
+    }
+
+    int currentComment = 0;
+    for (Entity entity : results.asIterable()) {
+      if (maxComment != -1) {
+        currentComment += 1;
+        if (maxComment < currentComment) {
+          break;
+        }
       }
-      
-      int currentComment = 0;
-      for (Entity entity : results.asIterable()) {
-        if(maxComment != -1){
-            currentComment += 1;
-            if (maxComment < currentComment){
-                break;
-            }
-        }      
-        long id = entity.getKey().getId();
-        String title = (String) entity.getProperty("message");
-        long timestamp = (long) entity.getProperty("timestamp");
+      long id = entity.getKey().getId();
+      String title = (String) entity.getProperty("message");
+      long timestamp = (long) entity.getProperty("timestamp");
 
       Text text = new Text(id, title, timestamp);
       texts.add(text);
@@ -80,14 +86,15 @@ public class DataServlet2 extends HttpServlet {
     response.getWriter().println(gson.toJson(texts));
   }
 
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-      String message = request.getParameter("userComment");
-      long timestamp = System.currentTimeMillis();
-      Entity commentEntity = new Entity("Text");
-      commentEntity.setProperty("message", message);
-      commentEntity.setProperty("timestamp", timestamp);
-      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-      datastore.put(commentEntity);
-      response.sendRedirect("/index.html");
+  public void doPost(HttpServletRequest request, HttpServletResponse response)
+    throws IOException {
+    String message = request.getParameter("userComment");
+    long timestamp = System.currentTimeMillis();
+    Entity commentEntity = new Entity("Text");
+    commentEntity.setProperty("message", message);
+    commentEntity.setProperty("timestamp", timestamp);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(commentEntity);
+    response.sendRedirect("/index.html");
   }
 }
