@@ -24,6 +24,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import com.google.appengine.api.datastore.Query;
+import java.util.List;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.FetchOptions;
+
 
 /** Servlet responsible for deleting data. */
 @WebServlet("/delete-data")
@@ -31,20 +36,13 @@ public class DeleteDataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    DataServlet2 newClass = new DataServlet2();
-    ArrayList<Long> allIDs = newClass.getArray();
-    
-    int arraySize = allIDs.size();
-    for(int i = 0;i <arraySize; ++i){
-        long id = allIDs.get(0);
-        System.out.println(allIDs.size());
-        System.out.println("+++ We Got Here +++");
-        System.out.println(id);
+    Query queue = new Query("Text").setKeysOnly();
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    List<Entity> results = datastore.prepare(queue).asList(FetchOptions.Builder.withDefaults());
+    for (int i = 0; i < results.size(); i++){
+        long id = results.get(i).getKey().getId();
         Key taskEntityKey = KeyFactory.createKey("Text", id);
-        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         datastore.delete(taskEntityKey);
-        allIDs.remove(0);
     }
-    
   }
 }
