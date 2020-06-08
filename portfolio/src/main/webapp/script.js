@@ -56,7 +56,8 @@ function addHelloToDom(hello) {
 }
 
 function getJson() {
-  fetch("/jsonData")
+  var max = document.getElementById("maxForm").value;
+  fetch("/jsonData?maxCount=" + max)
     .then((response) => response.json())
     .then((jsonData) => {
       console.log(jsonData);
@@ -64,9 +65,25 @@ function getJson() {
       var allComments = "";
       for (content in jsonData) {
         console.log(content);
-        allComments += jsonData[content];
+        console.log(jsonData[content]);
+        allComments += jsonData[content].message;
         allComments += "<br>";
       }
       commentContainer.innerHTML = allComments;
     });
+}
+
+function deleteText() {
+  fetch("/delete-data", { method: "POST" });
+  window.location.reload();
+}
+
+function passwordCheck() {
+  var password = document.getElementById("password").value;
+  if (password == "Marcus-Aurelius") {
+    window.alert("Correct! Felicior Augusto, melior Traiano");
+    deleteText();
+  } else {
+    window.alert("Wrong Password, Try Again.");
+  }
 }

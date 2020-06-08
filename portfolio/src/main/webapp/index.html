@@ -58,12 +58,12 @@
         Click the button below to get a random message. The message could either
         be about me or a movie/book quote that I enjoy.
       </p>
-      <button onclick="addRandomGreeting()">Explore</button>
+      <button onclick="addRandomGreeting()" class="regButton">Explore</button>
       <div id="greeting-container"></div>
 
       <br />
 
-      <button onclick="getData()">Get Hello</button>
+      <button onclick="getData()" class="regButton">Get Hello</button>
       <div id="data-container"></div>
 
       <br />
@@ -71,14 +71,33 @@
       <form action="/jsonData" method="POST">
         <label for="userComment">Add a comment:</label><br />
         <input type="text" id="userComment" name="userComment" /><br />
-        <br /><br />
         <input type="submit" />
       </form>
 
       <br />
 
-      <button onclick="getJson()">See Comments.</button>
+      <form action="/jsonData">
+        <p>How many comments do you want to see?</p>
+        <input
+          type="number"
+          name="maxCount"
+          min="0"
+          max="50"
+          value="10"
+          id="maxForm"
+          onchange="getJson()"
+        />
+        <input type="button" onclick="getJson()" value="Submit" />
+      </form>
       <div id="comment-container"></div>
+
+      <form>
+        <p>
+          If you want to delete ALL comments you need to input the password:
+        </p>
+        <input type="text" id="password" />
+        <input type="button" onclick="passwordCheck()" value="Delete" />
+      </form>
     </div>
   </body>
 </html>

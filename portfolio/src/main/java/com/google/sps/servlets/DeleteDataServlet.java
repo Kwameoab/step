@@ -1,4 +1,4 @@
-    // Copyright 2019 Google LLC
+// Copyright 2019 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,11 +17,10 @@ package com.google.sps.servlets;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.SortDirection;
-import com.google.gson.Gson;
-import com.google.sps.data.Task;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,30 +29,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet responsible for listing tasks. */
-@WebServlet("/list-tasks")
-public class ListTasksServlet extends HttpServlet {
+/** Servlet responsible for deleting data. */
+@WebServlet("/delete-data")
+public class DeleteDataServlet extends HttpServlet {
 
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
-
+  public void doPost(HttpServletRequest request, HttpServletResponse response)
+    throws IOException {
+    Query queue = new Query("Text").setKeysOnly();
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    PreparedQuery results = datastore.prepare(query);
-
-    List<Task> tasks = new ArrayList<>();
-    for (Entity entity : results.asIterable()) {
-      long id = entity.getKey().getId();
-      String title = (String) entity.getProperty("title");
-      long timestamp = (long) entity.getProperty("timestamp");
-
-      Task task = new Task(id, title, timestamp);
-      tasks.add(task);
+    List<Entity> results = datastore
+      .prepare(queue)
+      .asList(FetchOptions.Builder.withDefaults());
+    for (int i = 0; i < results.size(); i++) {
+      long id = results.get(i).getKey().getId();
+      Key taskEntityKey = KeyFactory.createKey("Text", id);
+      datastore.delete(taskEntityKey);
     }
-
-    Gson gson = new Gson();
-
-    response.setContentType("application/json;");
-    response.getWriter().println(gson.toJson(tasks));
   }
 }
