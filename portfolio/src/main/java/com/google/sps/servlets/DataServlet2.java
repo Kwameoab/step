@@ -62,6 +62,7 @@ public class DataServlet2 extends HttpServlet {
         HttpServletResponse.SC_BAD_REQUEST,
         "Can not use input"
       );
+      return;
     }
 
     int currentComment = 0;
