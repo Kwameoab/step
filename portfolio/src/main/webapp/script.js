@@ -89,33 +89,24 @@ function passwordCheck() {
   }
 }
 
-function hideShow() {
-  var curr = document.getElementById("makeComment");
-  if (curr.style.display === "none") {
-    curr.style.display = "block";
-  } else {
-    curr.style.display = "none";
-  }
-}
-
 async function checkStatus() {
   const response = await fetch("/User");
   const data = await response.text();
   document.getElementById("userContainer").innerHTML = data;
   var status = response.status;
   if (status >= 200 && status <= 299) {
-    whenLogged();
+    whenLoggedIn();
   } else {
     document.getElementById("userContainer").classList.add("hide");
   }
 }
 
-function whenLogged() {
-  var HelloOut = document.getElementById("htmlLogOut");
-  HelloOut.style.display = "none";
-  var hidden = document.getElementsByClassName("hide");
-  var length = hidden.length;
-  for (var i = 0; i < length; ++i) {
-    hidden[i].style.display = "block";
-  }
+function whenLoggedIn() {
+  var HelloWhileLoggedOut = document.getElementById("htmlLoggedOut");
+  HelloWhileLoggedOut.classList.add("hide");
+
+  var submitComment = document.getElementById("commentForm");
+  submitComment.classList.remove("hide");
+  var deleteComment = document.getElementById("deleteForm");
+  deleteComment.classList.remove("hide");
 }

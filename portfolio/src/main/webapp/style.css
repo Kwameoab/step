@@ -120,7 +120,8 @@ input[type="submit"],
   cursor: pointer;
 }
 
-#htmlLogIn, #htmlLogOut, #userContainer{
+#htmlLoggedOut,
+#userContainer {
   font-weight: bold;
 }
 
