@@ -120,19 +120,10 @@ input[type="submit"],
   cursor: pointer;
 }
 
-#makeComment {
-  display: none;
-}
-
-#htmlLogIn {
-  display: none;
+#htmlLogIn, #htmlLogOut, #userContainer{
   font-weight: bold;
 }
 
-#htmlLogOut {
-  font-weight: bold;
-}
-
-#deleteForm {
+.hide {
   display: none;
 }

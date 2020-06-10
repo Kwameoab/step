@@ -71,11 +71,8 @@
         Hello! You are not logged in. Login <a href="/User"> Here </a> to be
         able to make and delete comments.
       </div>
-      <div id="htmlLogIn">
-        Hello! You are logged in. Login <a href="/User"> out </a>
-      </div>
-
-      <form action="/jsonData" method="POST" id="makeComment">
+      <div id="userContainer"></div>
+      <form action="/jsonData" method="POST" class="hide">
         <label for="userComment">Add a comment:</label><br />
         <input type="text" id="userComment" name="userComment" /><br />
         <input type="submit" />
@@ -98,7 +95,7 @@
       </form>
       <div id="comment-container"></div>
 
-      <form id="deleteForm">
+      <form class="hide">
         <p>
           If you want to delete ALL comments you need to input the password:
         </p>

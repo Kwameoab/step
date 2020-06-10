@@ -33,19 +33,17 @@ public class User extends HttpServlet {
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
       String userEmail = userService.getCurrentUser().getEmail();
-      String urlToRedirectToAfterUserLogsOut = "/index.html";
+      String urlToRedirectToAfterUserLogsOut = "/";
       String logoutUrl = userService.createLogoutURL(
         urlToRedirectToAfterUserLogsOut
       );
-      System.out.println(userEmail);
 
-      response.getWriter().println("Logged in: " + userEmail);
       response.getWriter().println("<p>Hello " + userEmail + "!</p>");
       response
         .getWriter()
         .println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
     } else {
-      String urlToRedirectToAfterUserLogsIn = "/index.html";
+      String urlToRedirectToAfterUserLogsIn = "/";
       String loginUrl = userService.createLoginURL(
         urlToRedirectToAfterUserLogsIn
       );
@@ -54,6 +52,7 @@ public class User extends HttpServlet {
       response
         .getWriter()
         .println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
+      response.setStatus(HttpServletResponse.SC_NOT_FOUND);
     }
   }
 }

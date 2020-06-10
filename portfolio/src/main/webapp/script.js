@@ -98,25 +98,27 @@ function hideShow() {
   }
 }
 
-function checkStatus() {
-  fetch("/User")
-    .then((response) => response.text())
-    .then((data) => {
-      console.log(data);
-      var status = data.substring(0, 10);
-      if (status == "Logged in:") {
-        whenLogged();
-      }
-    });
+async function checkStatus() {
+  const response = await fetch("/User");
+  const data = await response.text();
+  document.getElementById("userContainer").innerHTML = data;
+  console.log(data);
+  var status = response.status;
+  console.log(status);
+  if (status >= 200 && status <= 299) {
+    whenLogged();
+  } else {
+    document.getElementById("userContainer").classList.add("hide");
+  }
 }
 
 function whenLogged() {
-  var commentCon = document.getElementById("makeComment");
-  commentCon.style.display = "block";
   var HelloOut = document.getElementById("htmlLogOut");
   HelloOut.style.display = "none";
-  var HelloIn = document.getElementById("htmlLogIn");
-  HelloIn.style.display = "block";
-  var deleteForm = document.getElementById("deleteForm");
-  deleteForm.style.display = "block";
+  var hidden = document.getElementsByClassName("hide");
+  console.log(hidden);
+  var length = hidden.length;
+  for (var i = 0; i < length; ++i) {
+    hidden[i].style.display = "block";
+  }
 }
