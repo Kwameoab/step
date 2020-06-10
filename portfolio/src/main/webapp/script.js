@@ -60,12 +60,13 @@ function getJson() {
   fetch("/jsonData?maxCount=" + max)
     .then((response) => response.json())
     .then((jsonData) => {
-      console.log(jsonData);
       var commentContainer = document.getElementById("comment-container");
       var allComments = "";
       for (content in jsonData) {
-        console.log(content);
-        console.log(jsonData[content]);
+        allComments += "<b>";
+        allComments += jsonData[content].userEmail;
+        allComments += "</b>";
+        allComments += ": ";
         allComments += jsonData[content].message;
         allComments += "<br>";
       }
@@ -86,4 +87,36 @@ function passwordCheck() {
   } else {
     window.alert("Wrong Password, Try Again.");
   }
+}
+
+function hideShow() {
+  var curr = document.getElementById("makeComment");
+  if (curr.style.display === "none") {
+    curr.style.display = "block";
+  } else {
+    curr.style.display = "none";
+  }
+}
+
+function checkStatus() {
+  fetch("/User")
+    .then((response) => response.text())
+    .then((data) => {
+      console.log(data);
+      var status = data.substring(0, 10);
+      if (status == "Logged in:") {
+        whenLogged();
+      }
+    });
+}
+
+function whenLogged() {
+  var commentCon = document.getElementById("makeComment");
+  commentCon.style.display = "block";
+  var HelloOut = document.getElementById("htmlLogOut");
+  HelloOut.style.display = "none";
+  var HelloIn = document.getElementById("htmlLogIn");
+  HelloIn.style.display = "block";
+  var deleteForm = document.getElementById("deleteForm");
+  deleteForm.style.display = "block";
 }
