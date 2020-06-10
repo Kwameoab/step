@@ -102,9 +102,7 @@ async function checkStatus() {
   const response = await fetch("/User");
   const data = await response.text();
   document.getElementById("userContainer").innerHTML = data;
-  console.log(data);
   var status = response.status;
-  console.log(status);
   if (status >= 200 && status <= 299) {
     whenLogged();
   } else {
@@ -116,7 +114,6 @@ function whenLogged() {
   var HelloOut = document.getElementById("htmlLogOut");
   HelloOut.style.display = "none";
   var hidden = document.getElementsByClassName("hide");
-  console.log(hidden);
   var length = hidden.length;
   for (var i = 0; i < length; ++i) {
     hidden[i].style.display = "block";
