@@ -60,12 +60,13 @@ function getJson() {
   fetch("/jsonData?maxCount=" + max)
     .then((response) => response.json())
     .then((jsonData) => {
-      console.log(jsonData);
       var commentContainer = document.getElementById("comment-container");
       var allComments = "";
       for (content in jsonData) {
-        console.log(content);
-        console.log(jsonData[content]);
+        allComments += "<b>";
+        allComments += jsonData[content].userEmail;
+        allComments += "</b>";
+        allComments += ": ";
         allComments += jsonData[content].message;
         allComments += "<br>";
       }
@@ -86,4 +87,26 @@ function passwordCheck() {
   } else {
     window.alert("Wrong Password, Try Again.");
   }
+}
+
+async function checkStatus() {
+  const response = await fetch("/User");
+  const data = await response.text();
+  document.getElementById("userContainer").innerHTML = data;
+  var status = response.status;
+  if (status >= 200 && status <= 299) {
+    whenLoggedIn();
+  } else {
+    document.getElementById("userContainer").classList.add("hide");
+  }
+}
+
+function whenLoggedIn() {
+  var HelloWhileLoggedOut = document.getElementById("htmlLoggedOut");
+  HelloWhileLoggedOut.classList.add("hide");
+
+  var submitComment = document.getElementById("commentForm");
+  submitComment.classList.remove("hide");
+  var deleteComment = document.getElementById("deleteForm");
+  deleteComment.classList.remove("hide");
 }

@@ -119,3 +119,12 @@ input[type="submit"],
   text-decoration: none;
   cursor: pointer;
 }
+
+#htmlLoggedOut,
+#userContainer {
+  font-weight: bold;
+}
+
+.hide {
+  display: none;
+}
