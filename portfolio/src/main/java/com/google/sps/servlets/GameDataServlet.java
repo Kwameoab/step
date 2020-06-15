@@ -59,7 +59,7 @@ public class GameDataServlet extends HttpServlet {
     throws IOException {
     String game = request.getParameter("game");
     Entity gameEntity = new Entity("gameChoice");
-    if (!checkDuplicate(game)) {
+    if (!incrementIfExists(game)) {
       gameEntity.setProperty("game", game);
       gameEntity.setProperty("count", 1);
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -82,7 +82,7 @@ public class GameDataServlet extends HttpServlet {
     return json;
   }
 
-  private boolean checkDuplicate(String check) {
+  private boolean incrementIfExists(String check) {
     Query query = new Query("gameChoice");
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);

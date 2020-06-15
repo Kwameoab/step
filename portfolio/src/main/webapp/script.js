@@ -115,27 +115,24 @@ google.charts.load("current", { packages: ["corechart"] });
 google.charts.setOnLoadCallback(drawChart);
 
 /** Creates a chart and adds it to the page. */
-function drawChart() {
-  fetch("/GameDataServlet")
-    .then((response) => response.json())
-    .then((gameVotes) => {
-      const data = new google.visualization.DataTable();
-      data.addColumn("string", "Game");
-      data.addColumn("number", "Votes");
-      Object.keys(gameVotes).forEach((title) => {
-        data.addRow([title, gameVotes[title]]);
-        console.log(gameVotes);
-      });
+async function drawChart() {
+  const response = await fetch("/GameDataServlet");
+  const gameVotes = await response.json();
+  const data = new google.visualization.DataTable();
+  data.addColumn("string", "Game");
+  data.addColumn("number", "Votes");
+  Object.keys(gameVotes).forEach((title) => {
+    data.addRow([title, gameVotes[title]]);
+  });
 
-      const options = {
-        title: "Favorite Games",
-        width: 600,
-        height: 500,
-      };
+  const options = {
+    title: "Favorite Games",
+    width: 600,
+    height: 500,
+  };
 
-      const chart = new google.visualization.ColumnChart(
-        document.getElementById("chart-container")
-      );
-      chart.draw(data, options);
-    });
+  const chart = new google.visualization.ColumnChart(
+    document.getElementById("chart-container")
+  );
+  chart.draw(data, options);
 }
