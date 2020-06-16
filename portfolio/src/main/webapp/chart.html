@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello Google Charts</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="script.js"></script>
+  </head>
+  <header>
+    <div class="container">
+      <a
+        href="https://www.linkedin.com/in/kwame-ampadu-boateng-672a49195"
+        target="_blank"
+      >
+        <img
+          src="/images/LinkedIn-Logo.png"
+          alt="LinkedIn"
+          class="logos"
+          height="75"
+        />
+      </a>
+      <a href="https://github.com/Kwameoab" target="_blank">
+        <img src="/images/Octocat.png" alt="Github" class="logos" height="75" />
+      </a>
+
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="education.html">Education</a></li>
+          <li><a href="personal.html">Personal</a></li>
+          <li><a href="step_experience.html">My STEP Experience</a></li>
+          <li><a href="chart.html" class="active">Chart</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <body>
+    <div id="content">
+      <h1>Hello! I want your opinion.</h1>
+      <div id="chart-container"></div>
+      <h3>
+        Out of these top ten most watched games on Twitch, as of June 2020,
+        which is your favorite?
+      </h3>
+      <form action="/GameDataServlet" method="POST">
+        <select name="game">
+          <option value="LEAGUE OF LEGENDS">LEAGUE OF LEGENDS</option>
+          <option value="FORTNITE">FORTNITE</option>
+          <option value="GRAND THEFT AUTO V">GRAND THEFT AUTO V</option>
+          <option value="CALL OF DUTY: MODERN WARFARE"
+            >CALL OF DUTY: MODERN WARFARE</option
+          >
+          <option value="ESCAPE FROM TARKOV">ESCAPE FROM TARKOV</option>
+          <option value="COUNTER-STRIKE: GLOBAL OFFENSIVE"
+            >COUNTER-STRIKE: GLOBAL OFFENSIVE</option
+          >
+          <option value="VALORANT">VALORANT</option>
+          <option value="DOTA 2">DOTA 2</option>
+          <option value="MINECRAFT">MINECRAFT</option>
+          <option value="WORLD OF WARCRAFT">WORLD OF WARCRAFT</option>
+          <option value="OTHER/NONE">OTHER/NONE</option>
+        </select>
+        <button>Submit</button>
+      </form>
+    </div>
+  </body>
+</html>
