@@ -30,4 +30,24 @@ public final class GreeterTest {
 
     Assert.assertEquals("Hello Ada", greeting);
   }
+
+  @Test
+  public void testGreetingTrimsWhitespace() {
+    Greeter greeter = new Greeter();
+    
+    String greeting = greeter.greet("   Ada   ");
+    
+    Assert.assertEquals("Hello Ada", greeting);
+  }
+
+  @Test
+  public void testGreetingSpecialCharacter() {
+    Greeter greeter = new Greeter();
+
+    String greeting = greeter.greet("@#$%Ada");
+
+    Assert.assertEquals("Hello Ada", greeting);
+  }
 }
+
+
