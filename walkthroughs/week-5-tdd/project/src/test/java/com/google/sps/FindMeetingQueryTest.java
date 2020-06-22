@@ -295,6 +295,7 @@ public final class FindMeetingQueryTest {
 
     Assert.assertEquals(expected, actual);
   }
+  
   @Test
   public void everyAttendeeIsConsidered_optionalMidDay() {
       Collection<Event> events = Arrays.asList(

@@ -37,7 +37,6 @@ public final class GreeterTest {
     
     String greeting = greeter.greet("   Ada   ");
     
-    // Whitespace should be trimmed
     Assert.assertEquals("Hello Ada", greeting);
   }
 
