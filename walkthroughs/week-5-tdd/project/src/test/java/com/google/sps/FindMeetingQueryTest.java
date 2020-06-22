@@ -295,7 +295,7 @@ public final class FindMeetingQueryTest {
 
     Assert.assertEquals(expected, actual);
   }
-  
+
   @Test
   public void everyAttendeeIsConsidered_optionalMidDay() {
       Collection<Event> events = Arrays.asList(
@@ -360,7 +360,7 @@ public final class FindMeetingQueryTest {
     Assert.assertEquals(expected, actual);
   } 
 
-    @Test
+  @Test
   public void noMandatoryAttendees_noTimeAvailable() {
     Collection<Event> events = Arrays.asList(
         new Event("Event 1", TimeRange.fromStartDuration(0, 12 * 60),
